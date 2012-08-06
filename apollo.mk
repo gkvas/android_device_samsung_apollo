@@ -40,22 +40,22 @@ PRODUCT_PACKAGES += \
 # Camera
 PRODUCT_PACKAGES += \
     camera.s5p6442
-
+    
 # Bluetooth
-PRODUCT_PACKAGES += \    
+PRODUCT_PACKAGES += \
     brcm_patchram_plus \
     bdaddr_read
     
 # Sensors
-PRODUCT_PACKAGES += \    
+PRODUCT_PACKAGES += \
     sensors.s5p6442
 
 # GPS
-PRODUCT_PACKAGES += \    
+PRODUCT_PACKAGES += \
     gps.s5p6442
     
 # Lights
-PRODUCT_PACKAGES += \    
+PRODUCT_PACKAGES += \
     lights.s5p6442
 
 # Misc Packages
@@ -155,4 +155,3 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 $(call inherit-product, device/common/gps/gps_eu_supl.mk)
-$(call inherit-product, device/samsung/apollo/device.mk)
