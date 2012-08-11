@@ -35,12 +35,25 @@ PRODUCT_PACKAGES += \
 
 # Video
 PRODUCT_PACKAGES += \
+	libstagefrighthw \
+    libsecjpeg \
+	gralloc.s5p6442 \
+	hwcomposer.default \
 	libGLES_fimg
 	
 # Camera
 PRODUCT_PACKAGES += \
-    camera.s5p6442
-    
+    camera.s5p6442 \
+    libs3cjpeg
+
+# These are the OpenMAX IL modules
+PRODUCT_PACKAGES += \
+	libSEC_OMX_Core.s5p6442 \
+	libOMX.SEC.AVC.Decoder.s5p6442 \
+	libOMX.SEC.M4V.Decoder.s5p6442 \
+	libOMX.SEC.M4V.Encoder.s5p6442 \
+	libOMX.SEC.AVC.Encoder.s5p6442
+
 # Bluetooth
 PRODUCT_PACKAGES += \
     brcm_patchram_plus \
@@ -59,7 +72,7 @@ PRODUCT_PACKAGES += \
     lights.s5p6442
 
 # Misc Packages
-PRODUCT_PACKAGES := \
+PRODUCT_PACKAGES += \
 	SamsungServiceMode \
 	bmlunlock
 	
@@ -84,8 +97,17 @@ PRODUCT_COPY_FILES += \
 	device/samsung/apollo/ueventd.rc:root/ueventd.rc \
 	device/samsung/apollo/recovery.fstab:recovery/root/etc/recovery.fstab
 
+# Video
+PRODUCT_COPY_FILES += \
+	device/samsung/apollo/prebuilt/lib/egl/libEGL_fimg.so:system/lib/egl/libEGL_fimg.so \
+	device/samsung/apollo/prebuilt/lib/egl/libGLES_android.so:system/lib/egl/libGLES_android.so \
+	device/samsung/apollo/prebuilt/lib/egl/libGLESv1_CM_fimg.so:system/lib/egl/libGLESv1_CM_fimg.so \
+	device/samsung/apollo/prebuilt/lib/egl/libGLESv2_fimg.so:system/lib/egl/libGLESv2_fimg.so
+
 # Camera
 PRODUCT_COPY_FILES += \
+	device/samsung/apollo/prebuilt/lib/libcamera.so:obj/lib/libcamera.so \
+	device/samsung/apollo/prebuilt/lib/libcamera.so:system/lib/libcamera.so \
 	device/samsung/apollo/prebuilt/etc/media_profiles.xml:system/etc/media_profiles.xml
 
 # Wifi
@@ -94,6 +116,10 @@ PRODUCT_COPY_FILES += \
 	device/samsung/apollo/prebuilt/etc/wifi/bcm4329_sta.bin:system/etc/wifi/bcm4329_sta.bin \
 	device/samsung/apollo/prebuilt/etc/wifi/nvram_net.txt:system/etc/wifi/nvram_net.txt
 	
+# These are the OpenMAX IL configuration files
+PRODUCT_COPY_FILES += \
+	device/samsung/apollo/sec_mm/sec_omx/sec_omx_core/secomxregistry:system/etc/secomxregistry
+
 # Bluetooth
 PRODUCT_COPY_FILES += \
    	device/samsung/apollo/prebuilt/vendor/firmware/bcm4329.hcd:system/vendor/firmware/bcm4329.hcd \
@@ -101,7 +127,7 @@ PRODUCT_COPY_FILES += \
 	
 # Gps
 PRODUCT_COPY_FILES += \
-	device/samsung/galaxys2/configs/gps.conf:system/etc/gps.conf
+	device/samsung/apollo/prebuilt/lib/libsecgps.so:system/lib/libsecgps.so
 	
 # Vold and Storage
 PRODUCT_COPY_FILES += \
@@ -127,12 +153,19 @@ PRODUCT_COPY_FILES += \
 
 # radio
 PRODUCT_PROPERTY_OVERRIDES += \
-	ro.telephony.ril_class=SamsungRIL
+	ro.telephony.ril_class=SamsungRIL \
+	phone.ril.classname = com.android.internal.telephony.SamsungRIL
 
-# Wifi
+# Display
 PRODUCT_PROPERTY_OVERRIDES += \
+	ro.sf.lcd_density=120 \
+    ro.opengles.version= 65537
+
+# Network & Wifi
+PRODUCT_PROPERTY_OVERRIDES += \
+    mobiledata.interfaces=pdp0,eth0,gprs,ppp0 \
 	wifi.interface=wlan0 \
-	wifi.supplicant_scan_interval=15
+	wifi.supplicant_scan_interval=180
 	
 # enable Google-specific location features,
 # like NetworkLocationProvider and LocationCollector
@@ -146,6 +179,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Default=true for development builds, set by android buildsystem.
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.kernel.android.checkjni=0 \
+    dalvik.vm.execution-mode=int:jit \
+    dalvik.vm.heapsize=48m \
+    dalvik.vm.checkjni=false \
     dalvik.vm.checkjni=false
     
 # Set default USB interface

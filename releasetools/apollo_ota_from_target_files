@@ -67,7 +67,7 @@ def WriteFullOTAPackage(input_zip, output_zip):
 
   script.Print(" ")
   script.Print("-------------------------------")
-  script.Print(" Welcome to Kyorarom Installer")
+  script.Print("   Welcome to MPICS Installer  ")
   script.Print("-------------------------------")
   script.Print(" ")
 

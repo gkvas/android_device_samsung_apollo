@@ -584,11 +584,12 @@ service bluetoothd /system/bin/bluetoothd -n
     group bluetooth net_bt_admin misc
     disabled
 
-service hciattach /system/bin/hciattach -n -s 115200 /dev/s3c2410_serial0 bcm2035 115200 flow
+service hciattach /system/bin/brcm_patchram_plus --enable_hci --tosleep 50000 --baudrate 3000000 --use_baudrate_for_download --patchram /vendor/firmware/bcm4329.hcd /dev/s3c2410_serial0
     class main
     user bluetooth
     group bluetooth net_bt_admin
     disabled
+    oneshot
 
 # to enable wifi
 service wpa_supplicant /system/bin/wpa_supplicant -Dwext -ieth0 -c /data/misc/wifi/wpa_supplicant.conf  -dd
