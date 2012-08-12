@@ -29,7 +29,6 @@ PRODUCT_AAPT_PREF_CONFIG := mdpi
 
 # Audio
 PRODUCT_PACKAGES += \
-	audio.a2dp.default \
 	audio.primary.s5p6442 \
 	audio_policy.s5p6442
 
@@ -97,6 +96,22 @@ PRODUCT_COPY_FILES += \
 	device/samsung/apollo/ueventd.rc:root/ueventd.rc \
 	device/samsung/apollo/recovery.fstab:recovery/root/etc/recovery.fstab
 
+## ril
+PRODUCT_COPY_FILES += \
+	device/samsung/apollo/prebuilt/bin/rild:system/bin/rild \
+	device/samsung/apollo/prebuilt/lib/libril.so:obj/lib/libril.so \
+	device/samsung/apollo/prebuilt/lib/libril.so:system/lib/libril.so \
+    device/samsung/apollo/prebuilt/lib/libsec-ril.so:system/lib/libsec-ril.so \
+    device/samsung/apollo/prebuilt/lib/libsecril-client.so:system/lib/libsecril-client.so
+
+## APNS
+PRODUCT_COPY_FILES += \
+    vendor/cm/prebuilt/common/etc/apns-conf.xml:system/etc/apns-conf.xml
+
+## Audio
+PRODUCT_COPY_FILES += \
+	device/samsung/apollo/prebuilt/etc/asound.conf:system/etc/asound.conf
+
 # Video
 PRODUCT_COPY_FILES += \
 	device/samsung/apollo/prebuilt/lib/egl/libEGL_fimg.so:system/lib/egl/libEGL_fimg.so \
@@ -159,12 +174,12 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Display
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.sf.lcd_density=120 \
-    ro.opengles.version= 65537
+    ro.opengles.version= 131072
 
 # Network & Wifi
 PRODUCT_PROPERTY_OVERRIDES += \
     mobiledata.interfaces=pdp0,eth0,gprs,ppp0 \
-	wifi.interface=wlan0 \
+	wifi.interface=eth0 \
 	wifi.supplicant_scan_interval=180
 	
 # enable Google-specific location features,
@@ -181,12 +196,23 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.kernel.android.checkjni=0 \
     dalvik.vm.execution-mode=int:jit \
     dalvik.vm.heapsize=48m \
-    dalvik.vm.checkjni=false \
     dalvik.vm.checkjni=false
     
 # Set default USB interface
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mass_storage
+
+# Misc
+PRODUCT_PROPERTY_OVERRIDES += \
+    keyguard.no_require_sim=true \
+    ro.com.android.dateformat=dd-MM-yyyy
+
+# Discard inherited values and use our own instead.
+PRODUCT_NAME := full_apollo
+PRODUCT_DEVICE := apollo
+PRODUCT_MODEL := GT-I5801
+PRODUCT_BRAND := samsung
+PRODUCT_MANUFACTURER := Samsung
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
