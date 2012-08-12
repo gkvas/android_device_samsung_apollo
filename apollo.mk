@@ -30,20 +30,19 @@ PRODUCT_AAPT_PREF_CONFIG := mdpi
 # Audio
 PRODUCT_PACKAGES += \
 	audio.primary.s5p6442 \
-	audio_policy.s5p6442
+	audio_policy.s5p6442 \
+	audio.a2dp.default
 
 # Video
 PRODUCT_PACKAGES += \
 	libstagefrighthw \
-    libsecjpeg \
 	gralloc.s5p6442 \
 	hwcomposer.default \
 	libGLES_fimg
 	
 # Camera
 PRODUCT_PACKAGES += \
-    camera.s5p6442 \
-    libs3cjpeg
+    camera.s5p6442
 
 # These are the OpenMAX IL modules
 PRODUCT_PACKAGES += \
@@ -69,6 +68,10 @@ PRODUCT_PACKAGES += \
 # Lights
 PRODUCT_PACKAGES += \
     lights.s5p6442
+
+# Super User
+PRODUCT_PACKAGES += \
+	Superuser
 
 # Misc Packages
 PRODUCT_PACKAGES += \
@@ -123,6 +126,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
 	device/samsung/apollo/prebuilt/lib/libcamera.so:obj/lib/libcamera.so \
 	device/samsung/apollo/prebuilt/lib/libcamera.so:system/lib/libcamera.so \
+	device/samsung/apollo/prebuilt/lib/libsecjpeg.so:system/lib/libsecjpeg.so \
 	device/samsung/apollo/prebuilt/etc/media_profiles.xml:system/etc/media_profiles.xml
 
 # Wifi
