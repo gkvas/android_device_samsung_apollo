@@ -19,7 +19,7 @@ LOCAL_SRC_FILES := \
 
 endif
 
-LOCAL_MODULE := libseccsc.s5p6442
+LOCAL_MODULE := libseccsc
 
 LOCAL_CFLAGS :=
 

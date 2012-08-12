@@ -16,7 +16,7 @@ LOCAL_SRC_FILES := \
 	SEC_OSAL_Buffer.cpp
 
 
-LOCAL_MODULE := libsecosal.s5p6442
+LOCAL_MODULE := libsecosal
 
 LOCAL_CFLAGS :=
 

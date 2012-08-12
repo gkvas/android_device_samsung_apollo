@@ -44,13 +44,13 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     camera.s5p6442
 
-# These are the OpenMAX IL modules
+# Hardware OMX Codecs
 PRODUCT_PACKAGES += \
-	libSEC_OMX_Core.s5p6442 \
-	libOMX.SEC.AVC.Decoder.s5p6442 \
-	libOMX.SEC.M4V.Decoder.s5p6442 \
-	libOMX.SEC.M4V.Encoder.s5p6442 \
-	libOMX.SEC.AVC.Encoder.s5p6442
+	libSEC_OMX_Core \
+	libOMX.SEC.AVC.Encoder \
+	libOMX.SEC.AVC.Decoder \
+	libOMX.SEC.M4V.Encoder \
+	libOMX.SEC.M4V.Decoder
 
 # Bluetooth
 PRODUCT_PACKAGES += \

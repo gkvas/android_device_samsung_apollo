@@ -8,14 +8,14 @@ LOCAL_SRC_FILES := \
 	library_register.c
 
 
-LOCAL_MODULE := libOMX.SEC.AVC.Decoder.s5p6442
+LOCAL_MODULE := libOMX.SEC.AVC.Decoder
 
 LOCAL_CFLAGS :=
 
 LOCAL_ARM_MODE := arm
 
-LOCAL_STATIC_LIBRARIES := libSEC_OMX_Vdec.s5p6442 libsecosal.s5p6442 libsecbasecomponent.s5p6442 \
-						libsecmfcdecapi.s5p6442 libseccsc.s5p6442
+LOCAL_STATIC_LIBRARIES := libSEC_OMX_Vdec libsecosal libsecbasecomponent \
+						libsecmfcdecapi libseccsc
 LOCAL_SHARED_LIBRARIES := libc libdl libcutils libutils libui libhardware
 
 LOCAL_C_INCLUDES := $(SEC_OMX_INC)/khronos \

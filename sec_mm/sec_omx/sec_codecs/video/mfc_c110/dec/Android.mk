@@ -7,7 +7,7 @@ LOCAL_MODULE_TAGS := optional
 LOCAL_SRC_FILES := \
 	src/SsbSipMfcDecAPI.c
 
-LOCAL_MODULE := libsecmfcdecapi.s5p6442
+LOCAL_MODULE := libsecmfcdecapi
 
 
 

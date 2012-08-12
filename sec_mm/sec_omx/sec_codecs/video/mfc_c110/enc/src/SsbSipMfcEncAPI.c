@@ -38,7 +38,7 @@ void *SsbSipMfcEncOpen(void *value)
     mfc_common_args EncArg;
     int ret_code;
 
-    hMFCOpen = open(s5p6442_MFC_DEV_NAME, O_RDWR | O_NDELAY);
+    hMFCOpen = open(SAMSUNG_MFC_DEV_NAME, O_RDWR | O_NDELAY);
     if (hMFCOpen < 0) {
         LOGE("SsbSipMfcEncOpen: MFC Open failure\n");
         return NULL;

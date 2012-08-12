@@ -99,7 +99,7 @@ void *SsbSipMfcDecOpen(void *value)
     }
     memset(pCTX, 0, sizeof(_MFCLIB));
 
-    hMFCOpen = open(s5p6442_MFC_DEV_NAME, O_RDWR | O_NDELAY);
+    hMFCOpen = open(SAMSUNG_MFC_DEV_NAME, O_RDWR | O_NDELAY);
     if (hMFCOpen < 0) {
         LOGE("SsbSipMfcDecOpen: MFC Open failure\n");
         return NULL;

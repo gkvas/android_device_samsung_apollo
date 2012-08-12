@@ -23,9 +23,9 @@
 #define MAX_DECODER_INPUT_BUFFER_SIZE  (1024 * 3072)
 #define MAX_ENCODER_OUTPUT_BUFFER_SIZE (1024 * 3072)
 
-#define MMAP_BUFFER_SIZE_MMAP          (35328*1024) // 34.5*1024*1024 // (62*1024*1024)
+#define MMAP_BUFFER_SIZE_MMAP          (20*1024*1024)
 
-#define s5p6442_MFC_DEV_NAME           "/dev/s3c-mfc"
+#define SAMSUNG_MFC_DEV_NAME           "/dev/s3c-mfc"
 
 /*--------------------------------------------------------------------------------*/
 /* Structure and Type                                                             */
