@@ -20,12 +20,14 @@ TARGET_ARCH_VARIANT := armv6-vfp
 TARGET_ARCH_VARIANT_CPU := arm1176jzf-s
 
 # Kernel
-TARGET_PROVIDES_INIT := true
-TARGET_PROVIDES_INIT_TARGET_RC := true
+#TARGET_KERNEL_CUSTOM_TOOLCHAIN := codesourcery
+#TARGET_PROVIDES_INIT := true
+#TARGET_PROVIDES_INIT_TARGET_RC := true
+#TARGET_KERNEL_SOURCE := kernel/samsung/apollo
+#TARGET_KERNEL_CONFIG := cyanogenmod_apollo_defconfig
+#BOARD_CUSTOM_BOOTIMG_MK := device/samsung/apollo/shbootimg.mk
+TARGET_PREBUILT_KERNEL := device/samsung/apollo/prebuilt/kernel
 TARGET_RECOVERY_INITRC := device/samsung/apollo/recovery.rc
-TARGET_KERNEL_SOURCE := kernel/samsung/apollo
-TARGET_KERNEL_CONFIG := cyanogenmod_apollo_defconfig
-BOARD_CUSTOM_BOOTIMG_MK := device/samsung/apollo/shbootimg.mk
 
 # Graphics
 # EGL Graphics Modifications
@@ -39,6 +41,9 @@ BOARD_CUSTOM_BOOTIMG_MK := device/samsung/apollo/shbootimg.mk
 BOARD_EGL_CFG := device/samsung/apollo/prebuilt/lib/egl/egl.cfg
 USE_OPENGL_RENDERER := false
 BOARD_USE_LEGACY_TOUCHSCREEN := true
+
+# Audio
+BOARD_USES_GENERIC_AUDIO := false
 
 # Sensors
 BOARD_USES_GPSSHIM := true
@@ -82,11 +87,10 @@ TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/platform/s3c-usbgadget/gadget/l
 BOARD_UMS_LUNFILE := "/sys/devices/platform/s3c-usbgadget/gadget/lun0/file"
 
 # Misc
-WITH_DEXPREOPT := true
+WITH_DEXPREOPT := false
 WITH_JIT := true
 TARGET_NO_BOOTLOADER := true
 TARGET_NO_RADIOIMAGE := true
-BOARD_USES_GENERIC_AUDIO := false
 BOARD_USES_LIBSECRIL_STUB := true
 
 # Recovery
@@ -99,9 +103,9 @@ DEVICE_RESOLUTION := 240x400
 
 # NAND
 #TARGET_USERIMAGES_USE_EXT4 := true
-#BOARD_BOOTIMAGE_PARTITION_SIZE := 8388608
-#BOARD_SYSTEMIMAGE_PARTITION_SIZE := 222822400
-#BOARD_USERDATAIMAGE_PARTITION_SIZE := 204996608
+#BOARD_BOOTIMAGE_PARTITION_SIZE := 7864320
+#BOARD_SYSTEMIMAGE_PARTITION_SIZE := 230686720
+#BOARD_USERDATAIMAGE_PARTITION_SIZE := 212336640
 #BOARD_FLASH_BLOCK_SIZE := 4096
 
 # Releasetools

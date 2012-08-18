@@ -274,15 +274,15 @@ int FGLFramebufferManager::put(unsigned int yoffset)
 	fb_var_screeninfo vinfo;
 
 	if (ioctl(_fd, FBIOGET_VSCREENINFO, &vinfo) < 0)
-		LOGE("%s: FBIOGET_VSCREENINFO failed.", __func__);
+		ALOGE("%s: FBIOGET_VSCREENINFO failed.", __func__);
 	vinfo.yoffset = yoffset;
 	if (ioctl(_fd, FBIOPAN_DISPLAY, &vinfo) < 0)
-		LOGE("%s: FBIOPAN_DISPLAY failed.", __func__);
+		ALOGE("%s: FBIOPAN_DISPLAY failed.", __func__);
 
 #ifdef FRAMEBUFFER_USE_VSYNC
 	int crtc = 0;
 	if (ioctl(_fd, FBIO_WAITFORVSYNC, &crtc) < 0)
-		LOGW("%s: FBIO_WAITFORVSYNC failed.", __func__);
+		ALOGW("%s: FBIO_WAITFORVSYNC failed.", __func__);
 #endif
 
 	_buffers[_write++] = yoffset;
@@ -350,7 +350,7 @@ public:
 		if (ioctl(fd, FBIOPUT_VSCREENINFO, &vinfo) < 0) {
 			vinfo.yres_virtual = vinfo.yres;
 			bufferCount = 1;
-			LOGW("FBIOPUT_VSCREENINFO failed, page flipping not supported");
+			ALOGW("FBIOPUT_VSCREENINFO failed, page flipping not supported");
 		}
 
 		unsigned long fbSize = vinfo.yres_virtual * finfo.line_length;
@@ -361,7 +361,7 @@ public:
 							MAP_SHARED, fd, 0);
 		if (vbase == MAP_FAILED) {
 			vbase = 0;
-			LOGE("mmap failed");
+			ALOGE("mmap failed");
 			setError(EGL_BAD_ALLOC);
 			return;
 		}
@@ -552,7 +552,7 @@ FGLRenderSurface *platformCreateWindowSurface(EGLDisplay dpy,
 	int fd = (int)window;
 
 	if (ioctl(fd, FBIOGET_VSCREENINFO, &vinfo) < 0) {
-		LOGE("%s: Invalid native window handle specified", __func__);
+		ALOGE("%s: Invalid native window handle specified", __func__);
 		setError(EGL_BAD_NATIVE_WINDOW);
 		return NULL;
 	}

@@ -49,7 +49,7 @@
 #define FUNC_UNIMPLEMENTED \
 	static int flag = 0; \
 	if (!flag) \
-		LOGW("Application called unimplemented function: %s", __func__); \
+		ALOGW("Application called unimplemented function: %s", __func__); \
 	flag = 1
 
 //#define TRACE_FUNCTIONS
@@ -60,12 +60,12 @@ public:
 	inline FunctionTracer(const char *n)
 	: name(n)
 	{
-		LOGD("Entering %s.", name);
+		ALOGD("Entering %s.", name);
 	}
 
 	inline ~FunctionTracer()
 	{
-		LOGD("Leaving %s.", name);
+		ALOGD("Leaving %s.", name);
 	}
 };
 

@@ -38,13 +38,13 @@
 #define pr_log(lvl, file, line, fmt, ...)	\
 	fprintf(stderr, "[libfimg:%s] %s: %d: " fmt "\n", lvl, file, line, ##__VA_ARGS__)
 
-#define LOGE(fmt, ...)	\
+#define ALOGE(fmt, ...)	\
 		pr_log(LOG_ERR, __FILE__, __LINE__, fmt, ##__VA_ARGS__)
-#define LOGW(fmt, ...)	\
+#define ALOGW(fmt, ...)	\
 		pr_log(LOG_WARN, __FILE__, __LINE__, fmt, ##__VA_ARGS__)
-#define LOGI(fmt, ...)	\
+#define ALOGI(fmt, ...)	\
 		pr_log(LOG_INFO, __FILE__, __LINE__, fmt, ##__VA_ARGS__)
-#define LOGD(fmt, ...)	\
+#define ALOGD(fmt, ...)	\
 		pr_log(LOG_DBG, __FILE__, __LINE__, fmt, ##__VA_ARGS__)
 
 #endif

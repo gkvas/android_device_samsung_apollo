@@ -407,7 +407,7 @@ GL_API void GL_APIENTRY glReadPixels (GLint x, GLint y,
 							x, y, width, height);
 			break;
 		default:
-			LOGW("Unsupported pixel format %d in glReadPixels.",
+			ALOGW("Unsupported pixel format %d in glReadPixels.",
 							fb->getColorFormat());
 		}
 		// We are done

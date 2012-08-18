@@ -157,7 +157,7 @@ GL_API void GL_APIENTRY glDeleteRenderbuffersOES (GLsizei n, const GLuint* rende
 		renderbuffers++;
 
 		if (!fglRenderbufferObjects.isValid(name)) {
-			LOGD("Tried to free invalid renderbuffer %d", name);
+			ALOGD("Tried to free invalid renderbuffer %d", name);
 			continue;
 		}
 
@@ -395,7 +395,7 @@ GL_API void GL_APIENTRY glDeleteFramebuffersOES (GLsizei n, const GLuint* frameb
 		framebuffers++;
 
 		if (!fglFramebufferObjects.isValid(name)) {
-			LOGD("Tried to free invalid framebuffer %d", name);
+			ALOGD("Tried to free invalid framebuffer %d", name);
 			continue;
 		}
 

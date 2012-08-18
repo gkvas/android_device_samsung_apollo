@@ -178,7 +178,7 @@ GL_API void GL_APIENTRY glDeleteBuffers (GLsizei n, const GLuint *buffers)
 		buffers++;
 
 		if(!fglBufferObjects.isValid(name)) {
-			LOGD("Tried to free invalid buffer %d", name);
+			ALOGD("Tried to free invalid buffer %d", name);
 			continue;
 		}
 
@@ -1933,7 +1933,7 @@ static inline void fglSet(GLenum cap, bool state)
 	case GL_MULTISAMPLE:
 		break;
 	default:
-		LOGD("Unimplemented or unsupported enum %d in %s", cap, __func__);
+		ALOGD("Unimplemented or unsupported enum %d in %s", cap, __func__);
 		//setError(GL_INVALID_ENUM);
 	}
 }

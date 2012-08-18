@@ -46,8 +46,8 @@
 //#define GRALLOC_FB_DEBUG
 
 #ifdef GRALLOC_FB_DEBUG
-#define DEBUG_ENTER()	LOGD("Entering %s", __func__); sleep(5)
-#define DEBUG_LEAVE()	LOGD("Leaving %s", __func__); sleep(5)
+#define DEBUG_ENTER()	ALOGD("Entering %s", __func__); sleep(5)
+#define DEBUG_LEAVE()	ALOGD("Leaving %s", __func__); sleep(5)
 #else
 #define DEBUG_ENTER()
 #define DEBUG_LEAVE()
@@ -139,7 +139,7 @@ static int fb_post(struct framebuffer_device_t* dev, buffer_handle_t buffer)
 		m->info.activate = FB_ACTIVATE_VBL;
 		m->info.yoffset = offset / m->finfo.line_length;
 		if (ioctl(m->framebuffer->fd, FBIOPAN_DISPLAY, &m->info) == -1) {
-			LOGE("FBIOPAN_DISPLAY failed");
+			ALOGE("FBIOPAN_DISPLAY failed");
 			m->base.unlock(&m->base, buffer);
 			return 0;
 		}
@@ -147,7 +147,7 @@ static int fb_post(struct framebuffer_device_t* dev, buffer_handle_t buffer)
 		// wait for VSYNC
 		unsigned int dummy; // No idea why is that, but it's required by the driver
 		if (ioctl(m->framebuffer->fd, FBIO_WAITFORVSYNC) < 0) {
-			LOGE("FBIO_WAITFORVSYNC failed");
+			ALOGE("FBIO_WAITFORVSYNC failed");
 			return 0;
 		}
 
@@ -226,25 +226,25 @@ int mapFrameBufferLocked(struct private_module_t* module)
 		i++;
 	}
 	if (fd < 0) {
-		LOGE("Failed to open framebuffer");
+		ALOGE("Failed to open framebuffer");
 		return -errno;
 	}
 
 	g2d_fd = open("/dev/s3c-g2d", O_RDWR, 0);
 	if (g2d_fd < 0) {
-		LOGE("Failed to open G2D device (%s)", "/dev/s3c-g2d");
+		ALOGE("Failed to open G2D device (%s)", "/dev/s3c-g2d");
 		return -errno;
 	}
 
 	struct fb_fix_screeninfo finfo;
 	if (ioctl(fd, FBIOGET_FSCREENINFO, &finfo) == -1) {
-		LOGE("FBIOGET_FSCREENINFO failed");
+		ALOGE("FBIOGET_FSCREENINFO failed");
 		return -errno;
 	}
 
 	struct fb_var_screeninfo info;
 	if (ioctl(fd, FBIOGET_VSCREENINFO, &info) == -1) {
-		LOGE("FBIOGET_VSCREENINFO failed");
+		ALOGE("FBIOGET_VSCREENINFO failed");
 		return -errno;
 	}
 
@@ -265,7 +265,7 @@ int mapFrameBufferLocked(struct private_module_t* module)
 		module->fbFormat = HAL_PIXEL_FORMAT_RGB_565;
 		break;
 	default:
-		LOGW("Unsupported pixel format (%d bpp), requesting RGB565.",
+		ALOGW("Unsupported pixel format (%d bpp), requesting RGB565.",
 							info.bits_per_pixel);
 		module->fbFormat = HAL_PIXEL_FORMAT_RGB_565;
 		info.bits_per_pixel = 16;
@@ -281,14 +281,14 @@ int mapFrameBufferLocked(struct private_module_t* module)
 	if (ioctl(fd, FBIOPUT_VSCREENINFO, &info) == -1) {
 		info.yres_virtual = info.yres;
 		flags &= ~PAGE_FLIP;
-		LOGW("FBIOPUT_VSCREENINFO failed, page flipping not supported");
+		ALOGW("FBIOPUT_VSCREENINFO failed, page flipping not supported");
 	}
 
 	if (info.yres_virtual < info.yres * 2) {
 		// we need at least 2 for page-flipping
 		info.yres_virtual = info.yres;
 		flags &= ~PAGE_FLIP;
-		LOGW("page flipping not supported (yres_virtual=%d, requested=%d)",
+		ALOGW("page flipping not supported (yres_virtual=%d, requested=%d)",
 		info.yres_virtual, info.yres*2);
 	}
 
@@ -320,7 +320,7 @@ int mapFrameBufferLocked(struct private_module_t* module)
 	float ydpi = (info.yres * 25.4f) / info.height;
 	float fps  = refreshRate / 1000.0f;
 
-	LOGI(   "using (fd=%d)\n"
+	ALOGI(   "using (fd=%d)\n"
 		"id           = %s\n"
 		"xres         = %d px\n"
 		"yres         = %d px\n"
@@ -342,7 +342,7 @@ int mapFrameBufferLocked(struct private_module_t* module)
 		info.blue.offset, info.blue.length
 	);
 
-	LOGI(   "width        = %d mm (%f dpi)\n"
+	ALOGI(   "width        = %d mm (%f dpi)\n"
 		"height       = %d mm (%f dpi)\n"
 		"refresh rate = %.2f Hz\n",
 		info.width,  xdpi,
@@ -380,7 +380,7 @@ int mapFrameBufferLocked(struct private_module_t* module)
 
 	void* vaddr = mmap(0, fbSize, PROT_READ|PROT_WRITE, MAP_SHARED, fd, 0);
 	if (vaddr == MAP_FAILED) {
-		LOGE("Error mapping the framebuffer (%s)", strerror(errno));
+		ALOGE("Error mapping the framebuffer (%s)", strerror(errno));
 		return -errno;
 	}
 	module->framebuffer->base = intptr_t(vaddr);
@@ -459,7 +459,7 @@ int fb_device_open(hw_module_t const* module, const char* name,
 			if (m->finfo.reserved[0] == 0x5444 &&
 					m->finfo.reserved[1] == 0x5055) {
 				dev->device.setUpdateRect = fb_setUpdateRect;
-				LOGD("UPDATE_ON_DEMAND supported");
+				ALOGD("UPDATE_ON_DEMAND supported");
 			}
 #endif
 			*device = &dev->device.common;
@@ -499,7 +499,7 @@ s3c_g2d_copy_buffer(int s3c_g2d_fd, buffer_handle_t handle, unsigned long buffer
 		fmt = G2D_RGBA_5551;
 		break;
 	default:
-		LOGE("UNSUPPORTED pixel format %d, aborting.", format);
+		ALOGE("UNSUPPORTED pixel format %d, aborting.", format);
 		return;
 	}
 
@@ -525,7 +525,7 @@ s3c_g2d_copy_buffer(int s3c_g2d_fd, buffer_handle_t handle, unsigned long buffer
 	req.src.b = req.dst.b = y + h - 1;
 
 	if (ioctl(s3c_g2d_fd, S3C_G2D_BITBLT, &req))
-		LOGE("S3C_G2D_BITBLT failed = %d", -errno);
+		ALOGE("S3C_G2D_BITBLT failed = %d", -errno);
 
 	DEBUG_LEAVE();
 }*/

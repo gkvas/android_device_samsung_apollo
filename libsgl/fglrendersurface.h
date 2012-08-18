@@ -110,7 +110,7 @@ public:
 	bool isValid() const
 	{
 		if (magic != MAGIC)
-			LOGE("invalid EGLSurface (%p)", this);
+			ALOGE("invalid EGLSurface (%p)", this);
 		return magic == MAGIC;
 	}
 

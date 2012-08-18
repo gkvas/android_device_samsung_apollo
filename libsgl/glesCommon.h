@@ -73,7 +73,7 @@ static inline GLint unitFromTextureEnum(GLenum texture)
 
 #ifdef GLES_DEBUG
 #define getContext() ( \
-	LOGD("%s called getContext()", __func__), \
+	ALOGD("%s called getContext()", __func__), \
 	_getContext())
 static inline FGLContext *_getContext(void)
 #else
@@ -83,7 +83,7 @@ static inline FGLContext *getContext(void)
 	FGLContext *ctx = getGlThreadSpecific();
 
 	if(!ctx) {
-		LOGE("GL context is NULL!");
+		ALOGE("GL context is NULL!");
 		exit(EINVAL);
 	}
 
@@ -99,7 +99,7 @@ extern pthread_key_t glErrorKey;
 
 #ifdef GLES_ERR_DEBUG
 #define setError(a) ( \
-	LOGD("GLES error %s in %s", #a, __func__), \
+	ALOGD("GLES error %s in %s", #a, __func__), \
 	_setError(a))
 static inline void _setError(GLenum error)
 #else

@@ -62,7 +62,7 @@ void fimgDumpState(fimgContext *ctx, unsigned mode, unsigned count, const char *
 	char buf[VALUES_PER_LINE * LINE_SIZE + 1];
 	char *s;
 
-	LOGD("DUMP %d %d (%s %d %d)", getpid(), ctx->fd, func, mode, count);
+	ALOGD("DUMP %d %d (%s %d %d)", getpid(), ctx->fd, func, mode, count);
 
 	for (b = blocks; b->length; ++b) {
 		unsigned addr	= b->start;
@@ -77,7 +77,7 @@ void fimgDumpState(fimgContext *ctx, unsigned mode, unsigned count, const char *
 				s += LINE_SIZE;
 			}
 			*(--s) = '\0';
-			LOGD("%s", buf);
+			ALOGD("%s", buf);
 		} while (len);
 	}
 #else

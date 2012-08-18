@@ -1407,14 +1407,14 @@ void fimgDrawArrays(fimgContext *ctx, unsigned int mode,
 		return;
 
 	if (!primitiveHandler[mode].direct) {
-		LOGE("%s: Unsupported mode %d", __func__, mode);
+		ALOGE("%s: Unsupported mode %d", __func__, mode);
 		return;
 	}
 
 	if (!ctx->vertexData) {
 		ctx->vertexData = memalign(32, VERTEX_BUFFER_SIZE);
 		if (!ctx->vertexData) {
-			LOGE("Failed to allocate vertex data buffer. Terminating.");
+			ALOGE("Failed to allocate vertex data buffer. Terminating.");
 			exit(ENOMEM);
 		}
 	}
@@ -1463,14 +1463,14 @@ void fimgDrawElementsUByteIdx(fimgContext *ctx, unsigned int mode,
 		return;
 
 	if (!primitiveHandler[mode].indexed_8) {
-		LOGE("%s: Unsupported mode %d", __func__, mode);
+		ALOGE("%s: Unsupported mode %d", __func__, mode);
 		return;
 	}
 
 	if (!ctx->vertexData) {
 		ctx->vertexData = memalign(32, VERTEX_BUFFER_SIZE);
 		if (!ctx->vertexData) {
-			LOGE("Failed to allocate vertex data buffer. Terminating.");
+			ALOGE("Failed to allocate vertex data buffer. Terminating.");
 			exit(ENOMEM);
 		}
 	}
@@ -1520,14 +1520,14 @@ void fimgDrawElementsUShortIdx(fimgContext *ctx, unsigned int mode,
 		return;
 
 	if (!primitiveHandler[mode].indexed_16) {
-		LOGE("%s: Unsupported mode %d", __func__, mode);
+		ALOGE("%s: Unsupported mode %d", __func__, mode);
 		return;
 	}
 
 	if (!ctx->vertexData) {
 		ctx->vertexData = memalign(32, VERTEX_BUFFER_SIZE);
 		if (!ctx->vertexData) {
-			LOGE("Failed to allocate vertex data buffer. Terminating.");
+			ALOGE("Failed to allocate vertex data buffer. Terminating.");
 			exit(ENOMEM);
 		}
 	}

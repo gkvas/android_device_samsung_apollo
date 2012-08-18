@@ -59,20 +59,20 @@ FGLLocalSurface::FGLLocalSurface(unsigned long req_size)
 	/* Create a buffer file (cached) */
 	fd = open("/dev/pmem_gpu1", O_RDWR, 0);
 	if(fd < 0) {
-		LOGE("EGL: Could not open PMEM device (%s)", strerror(errno));
+		ALOGE("EGL: Could not open PMEM device (%s)", strerror(errno));
 		return;
 	}
 
 	/* Allocate and map the memory */
 	vaddr = mmap(NULL, size, PROT_WRITE | PROT_READ, MAP_SHARED, fd, 0);
 	if (vaddr == MAP_FAILED) {
-		LOGE("EGL: PMEM buffer allocation failed (%s)", strerror(errno));
+		ALOGE("EGL: PMEM buffer allocation failed (%s)", strerror(errno));
 		goto err_mmap;
 	}
 
 	/* Get physical address */
 	if (ioctl(fd, PMEM_GET_PHYS, &region) < 0) {
-		LOGE("EGL: PMEM_GET_PHYS failed (%s)", strerror(errno));
+		ALOGE("EGL: PMEM_GET_PHYS failed (%s)", strerror(errno));
 		goto err_phys;
 	}
 	this->paddr = region.offset;
@@ -115,7 +115,7 @@ void FGLLocalSurface::flush(void)
 	region.len = size;
 
 	if (ioctl(fd, PMEM_CACHE_FLUSH, &region) != 0)
-		LOGW("Could not flush PMEM surface %d", fd);
+		ALOGW("Could not flush PMEM surface %d", fd);
 }
 
 FGLExternalSurface::FGLExternalSurface(void *v, intptr_t p, size_t s)

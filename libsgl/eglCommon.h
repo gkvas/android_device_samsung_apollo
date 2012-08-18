@@ -47,7 +47,7 @@ struct FGLExtensionMap {
 
 #ifdef EGL_ERR_DEBUG
 #define setError(a) ( \
-	LOGD("EGL error %s in %s in line %d", #a, __func__, __LINE__), \
+	ALOGD("EGL error %s in %s in line %d", #a, __func__, __LINE__), \
 	fglEGLSetError(a))
 #else
 #define setError fglEGLSetError

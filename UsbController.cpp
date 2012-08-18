@@ -37,12 +37,12 @@ UsbController::~UsbController() {
 }
 
 int UsbController::startRNDIS() {
-	LOGD("Usb RNDIS start");
+	ALOGD("Usb RNDIS start");
 	return enableRNDIS(true);
 }
 
 int UsbController::stopRNDIS() {
-	LOGD("Usb RNDIS stop");
+	ALOGD("Usb RNDIS stop");
 	return enableRNDIS(false);
 }
 

@@ -29,7 +29,7 @@
 #include "platform.h"
 #include "fimg.h"
 
-#define TRACE(a)	LOGD(#a); a
+#define TRACE(a)	ALOGD(#a); a
 
 #define likely(x)       __builtin_expect((x),1)
 #define unlikely(x)     __builtin_expect((x),0)
@@ -594,7 +594,7 @@ static inline void fimgWrite(fimgContext *ctx, unsigned int data, unsigned int a
 	volatile unsigned int *reg = (volatile unsigned int *)((volatile char *)ctx->base + addr);
 #ifdef FIMG_DEBUG_HW_LOCK
 	if (!ctx->locked) {
-		LOGE("Tried to access hardware registers without hw lock.");
+		ALOGE("Tried to access hardware registers without hw lock.");
 		return;
 	}
 #endif
@@ -608,7 +608,7 @@ static inline unsigned int fimgRead(fimgContext *ctx, unsigned int addr)
 	unsigned int val;
 #ifdef FIMG_DEBUG_HW_LOCK
 	if (!ctx->locked) {
-		LOGE("Tried to access hardware registers without hw lock.");
+		ALOGE("Tried to access hardware registers without hw lock.");
 		return 0xdeaddead;
 	}
 #endif
@@ -622,7 +622,7 @@ static inline void fimgWriteF(fimgContext *ctx, float data, unsigned int addr)
 	volatile float *reg = (volatile float *)((volatile char *)ctx->base + addr);
 #ifdef FIMG_DEBUG_HW_LOCK
 	if (!ctx->locked) {
-		LOGE("Tried to access hardware registers without hw lock.");
+		ALOGE("Tried to access hardware registers without hw lock.");
 		return;
 	}
 #endif
@@ -636,7 +636,7 @@ static inline float fimgReadF(fimgContext *ctx, unsigned int addr)
 	float val;
 #ifdef FIMG_DEBUG_HW_LOCK
 	if (!ctx->locked) {
-		LOGE("Tried to access hardware registers without hw lock.");
+		ALOGE("Tried to access hardware registers without hw lock.");
 		return 0xdeaddead;
 	}
 #endif

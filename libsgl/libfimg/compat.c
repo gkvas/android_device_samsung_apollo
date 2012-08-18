@@ -248,7 +248,7 @@ static uint32_t loadShaderBlock(const struct shaderBlock *blk,
 
 	for (inst = 0; inst < blk->len; inst++) {
 #ifdef FIMG_DYNSHADER_DEBUG
-		LOGD("%p: %08x %08x %08x %08x", addr,
+		ALOGD("%p: %08x %08x %08x %08x", addr,
 					data[0], data[1], data[2], data[3]);
 #endif
 #if 0
@@ -953,7 +953,7 @@ void fimgCompatBuildVertexShader(fimgContext *ctx, uint32_t slot)
 	if (!ctx->compat.vshaderBuf) {
 		ctx->compat.vshaderBuf = malloc(VS_CACHE_SIZE * MAX_INSTR * sizeof(fimgShaderInstruction));
 		if (!ctx->compat.vshaderBuf) {
-			LOGE("Failed to allocate memory for shader buffer, terminating.");
+			ALOGE("Failed to allocate memory for shader buffer, terminating.");
 			exit(1);
 		}
 	}
@@ -983,7 +983,7 @@ void fimgCompatLoadVertexShader(fimgContext *ctx)
 	uint32_t slot = ctx->compat.curVsNum;
 	struct fimgVertexShaderProgram *vs = &ctx->compat.vertexShaders[slot];
 #ifdef FIMG_DYNSHADER_DEBUG
-	LOGD("Loading optimized shader");
+	ALOGD("Loading optimized shader");
 #endif
 	reg = vsInstAddr(ctx, 0);
 	blk.data = SHADER_SLOT(ctx->compat.vshaderBuf, slot);
@@ -992,12 +992,12 @@ void fimgCompatLoadVertexShader(fimgContext *ctx)
 
 	setVertexShaderRange(ctx, 0, vs->instrCount - 1);
 #ifdef FIMG_DYNSHADER_DEBUG
-	LOGD("Loading const float");
+	ALOGD("Loading const float");
 #endif
 	reg = (volatile uint32_t *)(ctx->base + FGVS_CFLOAT_START);
 	loadShaderBlock(&vertexConstFloat, reg);
 #ifdef FIMG_DYNSHADER_DEBUG
-	LOGD("Loaded pixel shader");
+	ALOGD("Loaded pixel shader");
 #endif
 }
 
@@ -1008,19 +1008,19 @@ void fimgCompatBuildPixelShader(fimgContext *ctx, uint32_t slot)
 	uint32_t *start;
 	uint32_t instrCount;
 #ifdef FIMG_DYNSHADER_DEBUG
-	LOGD("Loading pixel shader");
+	ALOGD("Loading pixel shader");
 #endif
 	if (!ctx->compat.pshaderBuf) {
 		ctx->compat.pshaderBuf = malloc(PS_CACHE_SIZE * MAX_INSTR * sizeof(fimgShaderInstruction));
 		if (!ctx->compat.pshaderBuf) {
-			LOGE("Failed to allocate memory for shader buffer, terminating.");
+			ALOGE("Failed to allocate memory for shader buffer, terminating.");
 			exit(1);
 		}
 	}
 	start = addr = SHADER_SLOT(ctx->compat.pshaderBuf, slot);
 
 #ifdef FIMG_DYNSHADER_DEBUG
-	LOGD("Generating basic shader code");
+	ALOGD("Generating basic shader code");
 #endif
 	addr += loadShaderBlock(&pixelHeader, addr);
 
@@ -1071,7 +1071,7 @@ void fimgCompatBuildPixelShader(fimgContext *ctx, uint32_t slot)
 
 	addr += loadShaderBlock(&pixelFooter, addr);
 #ifdef FIMG_DYNSHADER_DEBUG
-	LOGD("Optimizing pixel shader");
+	ALOGD("Optimizing pixel shader");
 #endif
 	instrCount = optimizeShader(start, addr);
 
@@ -1088,7 +1088,7 @@ void fimgCompatLoadPixelShader(fimgContext *ctx)
 	uint32_t slot = ctx->compat.curPsNum;
 	struct fimgPixelShaderProgram *ps = &ctx->compat.pixelShaders[slot];
 #ifdef FIMG_DYNSHADER_DEBUG
-	LOGD("Loading optimized shader");
+	ALOGD("Loading optimized shader");
 #endif
 	reg = psInstAddr(ctx, 0);
 	blk.data = SHADER_SLOT(ctx->compat.pshaderBuf, slot);
@@ -1097,12 +1097,12 @@ void fimgCompatLoadPixelShader(fimgContext *ctx)
 
 	setPixelShaderRange(ctx, 0, ps->instrCount - 1);
 #ifdef FIMG_DYNSHADER_DEBUG
-	LOGD("Loading const float");
+	ALOGD("Loading const float");
 #endif
 	reg = (volatile uint32_t *)(ctx->base + FGPS_CFLOAT_START);
 	loadShaderBlock(&pixelConstFloat, reg);
 #ifdef FIMG_DYNSHADER_DEBUG
-	LOGD("Loaded pixel shader");
+	ALOGD("Loaded pixel shader");
 #endif
 }
 
@@ -1324,10 +1324,10 @@ static void validateVertexShader(fimgContext *ctx)
 	int ret;
 #ifdef FIMG_SHADER_CACHE_STATS
 	if (++ctx->compat.vsStatsCounter == 128) {
-		LOGD("Vertex shader cache stats:");
-		LOGD("Same hits: %d\n", ctx->compat.vsSameHits);
-		LOGD("Cache hits: %d\n", ctx->compat.vsCacheHits);
-		LOGD("Misses: %d\n", ctx->compat.vsMisses);
+		ALOGD("Vertex shader cache stats:");
+		ALOGD("Same hits: %d\n", ctx->compat.vsSameHits);
+		ALOGD("Cache hits: %d\n", ctx->compat.vsCacheHits);
+		ALOGD("Misses: %d\n", ctx->compat.vsMisses);
 		ctx->compat.vsSameHits = 0;
 		ctx->compat.vsCacheHits = 0;
 		ctx->compat.vsMisses = 0;
@@ -1374,10 +1374,10 @@ static void validatePixelShader(fimgContext *ctx)
 	int ret;
 #ifdef FIMG_SHADER_CACHE_STATS
 	if (++ctx->compat.psStatsCounter == 128) {
-		LOGD("Pixel shader cache stats:");
-		LOGD("Same hits: %d\n", ctx->compat.psSameHits);
-		LOGD("Cache hits: %d\n", ctx->compat.psCacheHits);
-		LOGD("Misses: %d\n", ctx->compat.psMisses);
+		ALOGD("Pixel shader cache stats:");
+		ALOGD("Same hits: %d\n", ctx->compat.psSameHits);
+		ALOGD("Cache hits: %d\n", ctx->compat.psCacheHits);
+		ALOGD("Misses: %d\n", ctx->compat.psMisses);
 		ctx->compat.psSameHits = 0;
 		ctx->compat.psCacheHits = 0;
 		ctx->compat.psMisses = 0;

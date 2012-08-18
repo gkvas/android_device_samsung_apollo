@@ -29,28 +29,37 @@ PRODUCT_AAPT_PREF_CONFIG := mdpi
 
 # Audio
 PRODUCT_PACKAGES += \
+	audio.a2dp.default \
+	audio.usb.default \
 	audio.primary.s5p6442 \
-	audio_policy.s5p6442 \
-	audio.a2dp.default
+	audio_policy.s5p6442
 
 # Video
 PRODUCT_PACKAGES += \
-	libstagefrighthw \
 	gralloc.s5p6442 \
-	hwcomposer.default \
-	libGLES_fimg
+	libGLES_fimg \
+	libstagefrighthw \
+	hwcomposer.s5p6442
 	
 # Camera
 PRODUCT_PACKAGES += \
-    camera.s5p6442
+	camera.s5p6442
+
+# Filesystem management tools
+PRODUCT_PACKAGES := \
+	make_ext4fs
 
 # Hardware OMX Codecs
 PRODUCT_PACKAGES += \
 	libSEC_OMX_Core \
-	libOMX.SEC.AVC.Encoder \
 	libOMX.SEC.AVC.Decoder \
+	libOMX.SEC.M4V.Decoder \
 	libOMX.SEC.M4V.Encoder \
-	libOMX.SEC.M4V.Decoder
+	libOMX.SEC.AVC.Encoder
+
+# Usb accessory
+PRODUCT_PACKAGES += \
+	com.android.future.usb.accessory
 
 # Bluetooth
 PRODUCT_PACKAGES += \
@@ -80,19 +89,21 @@ PRODUCT_PACKAGES += \
 	
 # These are the hardware-specific features
 PRODUCT_COPY_FILES += \
-	frameworks/base/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
-	frameworks/base/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
-    frameworks/base/data/etc/android.hardware.location.xml:system/etc/permissions/android.hardware.location.xml \
-	frameworks/base/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
-	frameworks/base/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
-	frameworks/base/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
-	frameworks/base/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
-	frameworks/base/data/etc/android.hardware.touchscreen.multitouch.jazzhand.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml \
-	frameworks/base/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
-	frameworks/base/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml
+	frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
+	frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
+    frameworks/native/data/etc/android.hardware.location.xml:system/etc/permissions/android.hardware.location.xml \
+	frameworks/native/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
+	frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
+	frameworks/native/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
+	frameworks/native/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
+	frameworks/native/data/etc/android.hardware.touchscreen.multitouch.jazzhand.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml \
+	frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
+	frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
+	frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml
 
 # Kernel Init files
 PRODUCT_COPY_FILES += \
+	device/samsung/apollo/prebuilt/kernel:kernel \
 	device/samsung/apollo/init.apollo.usb.rc:root/init.apollo.usb.rc \
 	device/samsung/apollo/init.rc:root/init.rc \
 	device/samsung/apollo/init.apollo.rc:root/init.apollo.rc \
@@ -113,7 +124,7 @@ PRODUCT_COPY_FILES += \
 
 ## Audio
 PRODUCT_COPY_FILES += \
-	device/samsung/apollo/prebuilt/etc/asound.conf:system/etc/asound.conf
+	device/samsung/apollo/prebuilt/etc/audio_policy.conf:system/etc/audio_policy.conf
 
 # Video
 PRODUCT_COPY_FILES += \
@@ -126,6 +137,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
 	device/samsung/apollo/prebuilt/lib/libcamera.so:obj/lib/libcamera.so \
 	device/samsung/apollo/prebuilt/lib/libcamera.so:system/lib/libcamera.so \
+	device/samsung/apollo/prebuilt/lib/libcamera_client.so:system/lib/libcamera_client.so \
 	device/samsung/apollo/prebuilt/lib/libsecjpeg.so:system/lib/libsecjpeg.so \
 	device/samsung/apollo/prebuilt/etc/media_profiles.xml:system/etc/media_profiles.xml
 
@@ -136,7 +148,7 @@ PRODUCT_COPY_FILES += \
 	device/samsung/apollo/prebuilt/etc/wifi/nvram_net.txt:system/etc/wifi/nvram_net.txt
 	
 # These are the OpenMAX IL configuration files
-PRODUCT_COPY_FILES += \
+#PRODUCT_COPY_FILES += \
 	device/samsung/apollo/sec_mm/sec_omx/sec_omx_core/secomxregistry:system/etc/secomxregistry
 
 # Bluetooth
@@ -170,6 +182,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/samsung/apollo/prebuilt/usr/idc/qt602240_ts_input.idc:system/usr/idc/qt602240_ts_input.idc
 
+# Super User
+PRODUCT_COPY_FILES += \
+	device/samsung/apollo/prebuilt/xbin/su:system/xbin/su \
+
 # radio
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.telephony.ril_class=SamsungRIL \
@@ -202,7 +218,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.heapsize=48m \
     dalvik.vm.checkjni=false
     
-# Set default USB interface
+# Root
+PRODUCT_PROPERTY_OVERRIDES += \
+	persist.sys.root_access=3
+
+# UMS
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mass_storage
 

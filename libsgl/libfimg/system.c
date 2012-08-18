@@ -49,19 +49,19 @@ int fimgDeviceOpen(fimgContext *ctx)
 {
 	ctx->fd = open("/dev/s3c-g3d", O_RDWR | O_SYNC, 0);
 	if(ctx->fd < 0) {
-		LOGE("Couldn't open /dev/s3c-g3d (%s).", strerror(errno));
+		ALOGE("Couldn't open /dev/s3c-g3d (%s).", strerror(errno));
 		return -errno;
 	}
 #ifndef FIMG_DEBUG_IOMEM_ACCESS
 	ctx->base = mmap(NULL, FIMG_SFR_SIZE, PROT_WRITE | PROT_READ,
 					MAP_SHARED, ctx->fd, 0);
 	if(ctx->base == MAP_FAILED) {
-		LOGE("Couldn't mmap FIMG registers (%s).", strerror(errno));
+		ALOGE("Couldn't mmap FIMG registers (%s).", strerror(errno));
 		close(ctx->fd);
 		return -errno;
 	}
 #endif
-	LOGD("Opened /dev/s3c-g3d (%d).", ctx->fd);
+	ALOGD("Opened /dev/s3c-g3d (%d).", ctx->fd);
 
 	return 0;
 }
@@ -77,7 +77,7 @@ void fimgDeviceClose(fimgContext *ctx)
 #endif
 	close(ctx->fd);
 
-	LOGD("fimg3D: Closed /dev/s3c-g3d (%d).", ctx->fd);
+	ALOGD("fimg3D: Closed /dev/s3c-g3d (%d).", ctx->fd);
 }
 
 /**
@@ -184,14 +184,14 @@ int fimgAcquireHardwareLock(fimgContext *ctx)
 	int ret;
 
 	if((ret = ioctl(ctx->fd, S3C_G3D_LOCK, 0)) < 0) {
-		LOGE("Could not acquire the hardware lock");
+		ALOGE("Could not acquire the hardware lock");
 		return -1;
 	}
 #ifdef FIMG_DEBUG_IOMEM_ACCESS
 	ctx->base = mmap(NULL, FIMG_SFR_SIZE, PROT_WRITE | PROT_READ,
 					MAP_SHARED, ctx->fd, 0);
 	if(ctx->base == MAP_FAILED) {
-		LOGE("Couldn't mmap FIMG registers (%s).", strerror(errno));
+		ALOGE("Couldn't mmap FIMG registers (%s).", strerror(errno));
 		close(ctx->fd);
 		return -errno;
 	}
@@ -213,7 +213,7 @@ int fimgReleaseHardwareLock(fimgContext *ctx)
 	munmap((void *)ctx->base, FIMG_SFR_SIZE);
 #endif
 	if(ioctl(ctx->fd, S3C_G3D_UNLOCK, 0)) {
-		LOGE("Could not release the hardware lock");
+		ALOGE("Could not release the hardware lock");
 		return -1;
 	}
 
@@ -232,7 +232,7 @@ int fimgReleaseHardwareLock(fimgContext *ctx)
 int fimgWaitForFlush(fimgContext *ctx, uint32_t target)
 {
 	if(ioctl(ctx->fd, S3C_G3D_FLUSH, target)) {
-		LOGE("Could not flush the hardware pipeline");
+		ALOGE("Could not flush the hardware pipeline");
 		fimgDumpState(ctx, 0, 0, __func__);
 		return -1;
 	}

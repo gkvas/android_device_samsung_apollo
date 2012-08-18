@@ -78,7 +78,7 @@ GL_API void GL_APIENTRY glDeleteTextures (GLsizei n, const GLuint *textures)
 		textures++;
 
 		if(!fglTextureObjects.isValid(name)) {
-			LOGD("Tried to free invalid texture %d", name);
+			ALOGD("Tried to free invalid texture %d", name);
 			continue;
 		}
 
@@ -312,7 +312,7 @@ processNextLevel:
 		}
 		break; }
 	default:
-		LOGE("Unsupported format (%d)", obj->pixFormat);
+		ALOGE("Unsupported format (%d)", obj->pixFormat);
 		return;
 	}
 
@@ -500,7 +500,7 @@ static void fglConvertTexture(FGLTexture *obj, unsigned level,
 		break;
 	}
 	default:
-		LOGW("Unsupported texture conversion %d", obj->format);
+		ALOGW("Unsupported texture conversion %d", obj->format);
 		return;
 	}
 }
@@ -829,7 +829,7 @@ static void fglConvertTexturePartial(FGLTexture *obj, unsigned level,
 		break;
 	}
 	default:
-		LOGW("Unsupported texture conversion %d", obj->format);
+		ALOGW("Unsupported texture conversion %d", obj->format);
 		return;
 	}
 }
@@ -1040,7 +1040,7 @@ GL_API void GL_APIENTRY glTexParameteri (GLenum target, GLenum pname, GLint para
 			break;
 		default:
 			setError(GL_INVALID_VALUE);
-			LOGD("Invalid value %x for %x", param, pname);
+			ALOGD("Invalid value %x for %x", param, pname);
 		}
 		break;
 	case GL_TEXTURE_WRAP_T:
@@ -1054,7 +1054,7 @@ GL_API void GL_APIENTRY glTexParameteri (GLenum target, GLenum pname, GLint para
 			break;
 		default:
 			setError(GL_INVALID_VALUE);
-			LOGD("Invalid value %x for %x", param, pname);
+			ALOGD("Invalid value %x for %x", param, pname);
 		}
 		break;
 	case GL_TEXTURE_MIN_FILTER:
@@ -1086,7 +1086,7 @@ GL_API void GL_APIENTRY glTexParameteri (GLenum target, GLenum pname, GLint para
 			break;
 		default:
 			setError(GL_INVALID_VALUE);
-			LOGD("Invalid value %x for %x", param, pname);
+			ALOGD("Invalid value %x for %x", param, pname);
 		}
 		break;
 	case GL_TEXTURE_MAG_FILTER:
@@ -1104,7 +1104,7 @@ GL_API void GL_APIENTRY glTexParameteri (GLenum target, GLenum pname, GLint para
 			break;
 		default:
 			setError(GL_INVALID_VALUE);
-			LOGD("Invalid value %x for %x", param, pname);
+			ALOGD("Invalid value %x for %x", param, pname);
 		}
 		break;
 	case GL_GENERATE_MIPMAP:
@@ -1112,7 +1112,7 @@ GL_API void GL_APIENTRY glTexParameteri (GLenum target, GLenum pname, GLint para
 		break;
 	default:
 		setError(GL_INVALID_ENUM);
-		LOGE("Invalid enum value %08x.", pname);
+		ALOGE("Invalid enum value %08x.", pname);
 	}
 }
 
@@ -1248,7 +1248,7 @@ GL_API void GL_APIENTRY glTexEnvi (GLenum target, GLenum pname, GLint param)
 			break;
 		default:
 			setError(GL_INVALID_ENUM);
-			LOGD("Invalid value %x for %x", param, pname);
+			ALOGD("Invalid value %x for %x", param, pname);
 		}
 		break;
 	case GL_COMBINE_RGB:
@@ -1287,7 +1287,7 @@ GL_API void GL_APIENTRY glTexEnvi (GLenum target, GLenum pname, GLint param)
 			break;
 		default:
 			setError(GL_INVALID_ENUM);
-			LOGD("Invalid value %x for %x", param, pname);
+			ALOGD("Invalid value %x for %x", param, pname);
 		}
 		break;
 	case GL_COMBINE_ALPHA:
@@ -1318,13 +1318,13 @@ GL_API void GL_APIENTRY glTexEnvi (GLenum target, GLenum pname, GLint param)
 			break;
 		default:
 			setError(GL_INVALID_ENUM);
-			LOGD("Invalid value %x for %x", param, pname);
+			ALOGD("Invalid value %x for %x", param, pname);
 		}
 		break;
 	case GL_RGB_SCALE:
 		if (param != 1 && param != 2 && param != 4) {
 			setError(GL_INVALID_VALUE);
-			LOGD("Invalid value %x for %x", param, pname);
+			ALOGD("Invalid value %x for %x", param, pname);
 			return;
 		}
 		fimgCompatSetColorScale(ctx->fimg, unit, param);
@@ -1332,7 +1332,7 @@ GL_API void GL_APIENTRY glTexEnvi (GLenum target, GLenum pname, GLint param)
 	case GL_ALPHA_SCALE:
 		if (param != 1 && param != 2 && param != 4) {
 			setError(GL_INVALID_VALUE);
-			LOGD("Invalid value %x for %x", param, pname);
+			ALOGD("Invalid value %x for %x", param, pname);
 			return;
 		}
 		fimgCompatSetAlphaScale(ctx->fimg, unit, param);
@@ -1357,7 +1357,7 @@ GL_API void GL_APIENTRY glTexEnvi (GLenum target, GLenum pname, GLint param)
 			break;
 		default:
 			setError(GL_INVALID_ENUM);
-			LOGD("Invalid value %x for %x", param, pname);
+			ALOGD("Invalid value %x for %x", param, pname);
 		}
 		break;
 	case GL_OPERAND0_RGB:
@@ -1380,7 +1380,7 @@ GL_API void GL_APIENTRY glTexEnvi (GLenum target, GLenum pname, GLint param)
 			break;
 		default:
 			setError(GL_INVALID_ENUM);
-			LOGD("Invalid value %x for %x", param, pname);
+			ALOGD("Invalid value %x for %x", param, pname);
 		}
 		break;
 	case GL_SRC0_ALPHA:
@@ -1403,7 +1403,7 @@ GL_API void GL_APIENTRY glTexEnvi (GLenum target, GLenum pname, GLint param)
 			break;
 		default:
 			setError(GL_INVALID_ENUM);
-			LOGD("Invalid value %x for %x", param, pname);
+			ALOGD("Invalid value %x for %x", param, pname);
 		}
 		break;
 	case GL_OPERAND0_ALPHA:
@@ -1418,7 +1418,7 @@ GL_API void GL_APIENTRY glTexEnvi (GLenum target, GLenum pname, GLint param)
 			break;
 		default:
 			setError(GL_INVALID_ENUM);
-			LOGD("Invalid value %x for %x", param, pname);
+			ALOGD("Invalid value %x for %x", param, pname);
 		}
 		break;
 	case GL_SRC1_RGB:
@@ -1441,7 +1441,7 @@ GL_API void GL_APIENTRY glTexEnvi (GLenum target, GLenum pname, GLint param)
 			break;
 		default:
 			setError(GL_INVALID_ENUM);
-			LOGD("Invalid value %x for %x", param, pname);
+			ALOGD("Invalid value %x for %x", param, pname);
 		}
 		break;
 	case GL_OPERAND1_RGB:
@@ -1464,7 +1464,7 @@ GL_API void GL_APIENTRY glTexEnvi (GLenum target, GLenum pname, GLint param)
 			break;
 		default:
 			setError(GL_INVALID_ENUM);
-			LOGD("Invalid value %x for %x", param, pname);
+			ALOGD("Invalid value %x for %x", param, pname);
 		}
 		break;
 	case GL_SRC1_ALPHA:
@@ -1487,7 +1487,7 @@ GL_API void GL_APIENTRY glTexEnvi (GLenum target, GLenum pname, GLint param)
 			break;
 		default:
 			setError(GL_INVALID_ENUM);
-			LOGD("Invalid value %x for %x", param, pname);
+			ALOGD("Invalid value %x for %x", param, pname);
 		}
 		break;
 	case GL_OPERAND1_ALPHA:
@@ -1502,7 +1502,7 @@ GL_API void GL_APIENTRY glTexEnvi (GLenum target, GLenum pname, GLint param)
 			break;
 		default:
 			setError(GL_INVALID_ENUM);
-			LOGD("Invalid value %x for %x", param, pname);
+			ALOGD("Invalid value %x for %x", param, pname);
 		}
 		break;
 	case GL_SRC2_RGB:
@@ -1525,7 +1525,7 @@ GL_API void GL_APIENTRY glTexEnvi (GLenum target, GLenum pname, GLint param)
 			break;
 		default:
 			setError(GL_INVALID_ENUM);
-			LOGD("Invalid value %x for %x", param, pname);
+			ALOGD("Invalid value %x for %x", param, pname);
 		}
 		break;
 	case GL_OPERAND2_RGB:
@@ -1548,7 +1548,7 @@ GL_API void GL_APIENTRY glTexEnvi (GLenum target, GLenum pname, GLint param)
 			break;
 		default:
 			setError(GL_INVALID_ENUM);
-			LOGD("Invalid value %x for %x", param, pname);
+			ALOGD("Invalid value %x for %x", param, pname);
 		}
 		break;
 	case GL_SRC2_ALPHA:
@@ -1571,7 +1571,7 @@ GL_API void GL_APIENTRY glTexEnvi (GLenum target, GLenum pname, GLint param)
 			break;
 		default:
 			setError(GL_INVALID_ENUM);
-			LOGD("Invalid value %x for %x", param, pname);
+			ALOGD("Invalid value %x for %x", param, pname);
 		}
 		break;
 	case GL_OPERAND2_ALPHA:
@@ -1586,12 +1586,12 @@ GL_API void GL_APIENTRY glTexEnvi (GLenum target, GLenum pname, GLint param)
 			break;
 		default:
 			setError(GL_INVALID_ENUM);
-			LOGD("Invalid value %x for %x", param, pname);
+			ALOGD("Invalid value %x for %x", param, pname);
 		}
 		break;
 	default:
 		setError(GL_INVALID_ENUM);
-		LOGD("Invalid enum: %x", pname);
+		ALOGD("Invalid enum: %x", pname);
 	}
 }
 
@@ -1630,7 +1630,7 @@ GL_API void GL_APIENTRY glTexEnvf (GLenum target, GLenum pname, GLfloat param)
 	case GL_RGB_SCALE:
 		if (param != 1.0 && param != 2.0 && param != 4.0) {
 			setError(GL_INVALID_VALUE);
-			LOGD("Invalid value %f for %x", param, pname);
+			ALOGD("Invalid value %f for %x", param, pname);
 			return;
 		}
 		fimgCompatSetColorScale(ctx->fimg, unit, param);
@@ -1638,7 +1638,7 @@ GL_API void GL_APIENTRY glTexEnvf (GLenum target, GLenum pname, GLfloat param)
 	case GL_ALPHA_SCALE:
 		if (param != 1.0 && param != 2.0 && param != 4.0) {
 			setError(GL_INVALID_VALUE);
-			LOGD("Invalid value %f for %x", param, pname);
+			ALOGD("Invalid value %f for %x", param, pname);
 			return;
 		}
 		fimgCompatSetAlphaScale(ctx->fimg, unit, param);
@@ -1662,7 +1662,7 @@ GL_API void GL_APIENTRY glTexEnvx (GLenum target, GLenum pname, GLfixed param)
 	case GL_RGB_SCALE:
 		if (param != (1 << 16) && param != (2 << 16) && param != (4 << 16)) {
 			setError(GL_INVALID_VALUE);
-			LOGD("Invalid value %x for %x", param, pname);
+			ALOGD("Invalid value %x for %x", param, pname);
 			return;
 		}
 		fimgCompatSetColorScale(ctx->fimg, unit, floatFromFixed(param));
@@ -1670,7 +1670,7 @@ GL_API void GL_APIENTRY glTexEnvx (GLenum target, GLenum pname, GLfixed param)
 	case GL_ALPHA_SCALE:
 		if (param != (1 << 16) && param != (2 << 16) && param != (4 << 16)) {
 			setError(GL_INVALID_VALUE);
-			LOGD("Invalid value %x for %x", param, pname);
+			ALOGD("Invalid value %x for %x", param, pname);
 			return;
 		}
 		fimgCompatSetAlphaScale(ctx->fimg, unit, floatFromFixed(param));
